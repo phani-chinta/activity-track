@@ -53,3 +53,14 @@ class TaskFlowTests(TestCase):
         response = self.client.get(reverse("dashboard"))
         self.assertEqual(response.context["stats"]["total"], 2)
         self.assertEqual(response.context["stats"]["overdue"], 1)
+
+    def test_list_search_and_filters_stay_scoped_to_owner(self):
+        matching = Task.objects.create(user=self.alice, title="Project launch", priority=Task.Priority.HIGH, status=Task.Status.IN_PROGRESS, due_date=timezone.localdate() + timedelta(days=5))
+        Task.objects.create(user=self.bob, title="Project secret", priority=Task.Priority.HIGH, status=Task.Status.IN_PROGRESS, due_date=timezone.localdate() + timedelta(days=1))
+        self.client.force_login(self.alice)
+        response = self.client.get(reverse("task_list"), {"q": "project", "priority": "high", "status": "in_progress"})
+        self.assertEqual(list(response.context["tasks"]), [matching])
+
+    def test_completed_past_due_task_is_not_overdue(self):
+        task = Task.objects.create(user=self.alice, title="Finished", status=Task.Status.COMPLETED, due_date=timezone.localdate() - timedelta(days=1))
+        self.assertFalse(task.is_overdue)

@@ -16,13 +16,21 @@ TaskFlow is a server-rendered Django task manager. Users can register, manage th
 Requires Python 3.12 and PostgreSQL for a production-like local setup. A fresh checkout without `DATABASE_URL` uses SQLite for local development only.
 
 1. Create and activate a virtual environment: `python -m venv .venv` then activate it for your shell.
-2. Install packages: `python -m pip install -r requirements.txt`.
-3. Copy `.env.example` to `.env` and set `SECRET_KEY`, `DEBUG=True`, and local `DATABASE_URL` if using PostgreSQL. Django does not load `.env` files automatically; export those values in your shell or use your preferred local environment loader.
+2. Install packages: `.\.venv\Scripts\python -m pip install -r requirements.txt` (or `pip install -r requirements.txt` with the venv active).
+3. Copy `.env.example` to `.env` and fill in `SECRET_KEY` and `DEBUG=True`. Leave `DATABASE_URL` unset to use SQLite for local development. The settings module automatically reads `.env` on startup, so no extra shell export step is needed.
 4. Apply migrations: `python manage.py migrate`.
 5. Create an admin account if needed: `python manage.py createsuperuser`.
 6. Start the app: `python manage.py runserver` and open `http://127.0.0.1:8000/`.
 
-Example PowerShell environment setup for a local session:
+A minimal local `.env` (with SQLite) looks like this:
+
+```env
+SECRET_KEY=a-long-random-local-secret
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+For a production-like local setup using PostgreSQL, also set `DATABASE_URL` in `.env`. Alternatively export the variables directly in PowerShell for a session-only setup:
 
 ```powershell
 $env:SECRET_KEY = "a-long-random-local-secret"

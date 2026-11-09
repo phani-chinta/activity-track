@@ -36,7 +36,7 @@ $env:ALLOWED_HOSTS = "localhost,127.0.0.1"
 | --- | --- |
 | `SECRET_KEY` | Django signing key. Set a unique long random value outside source control. |
 | `DEBUG` | Set `False` in production. |
-| `ALLOWED_HOSTS` | Comma-separated hostnames, such as `taskflow.example.com,your-app.vercel.app`. |
+| `ALLOWED_HOSTS` | Comma-separated hostnames, such as `taskflow.example.com,your-app.vercel.app`. Vercel's `VERCEL_URL` and `VERCEL_PROJECT_PRODUCTION_URL` are also added automatically when available. |
 | `DATABASE_URL` | PostgreSQL URL from Supabase. Use the Supabase session or transaction pooler endpoint suited to your project and deployment, with `sslmode=require`. |
 | `CSRF_TRUSTED_ORIGINS` | Optional comma-separated full origins, for example `https://taskflow.example.com,https://your-app.vercel.app`. |
 | `SECURE_SSL_REDIRECT` | Defaults to `True` when `DEBUG=False`; set only if the hosting proxy arrangement requires otherwise. |
@@ -56,7 +56,7 @@ WhiteNoise is enabled for local and conventional WSGI deployments. `python manag
 The current Vercel Python runtime supports Python 3.12; Django is recognized as a framework, and no legacy `builds` routing is needed for this layout. `vercel.json` selects the Django framework preset. See [Vercel's Python runtime documentation](https://vercel.com/docs/functions/runtimes/python) and [Django deployment announcement](https://vercel.com/changelog/zero-configuration-django-support).
 
 1. Push this repository to GitHub and import it as a Vercel project. Choose the production branch in Vercel's Git settings to enable automatic production deployments on pushes.
-2. Add `SECRET_KEY`, `DEBUG=False`, `ALLOWED_HOSTS`, `DATABASE_URL`, and `CSRF_TRUSTED_ORIGINS` to the appropriate Vercel environments. Include the Vercel production domain and any custom domain in hosts/trusted origins.
+2. Add `SECRET_KEY`, `DEBUG=False`, `ALLOWED_HOSTS`, `DATABASE_URL`, and `CSRF_TRUSTED_ORIGINS` to the appropriate Vercel environments. The current Vercel deployment hostname is picked up from `VERCEL_URL`; include any custom domain in `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS`.
 3. Confirm the `DATABASE_URL` is the Supabase pooler URL and includes SSL. Do not enable SQLite in production.
 4. Deploy the application. Configure the Vercel build command to run `python manage.py collectstatic --noinput` if the detected Django build does not already collect static files.
 5. After configuring environment variables and before serving the new schema-dependent release, run `python manage.py migrate` as a controlled release step using a trusted environment with the same production `DATABASE_URL`. Do not run migrations on each request.

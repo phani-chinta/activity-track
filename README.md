@@ -11,6 +11,8 @@ TaskFlow is a server-rendered Django task manager. Users can register, manage th
 - Supabase PostgreSQL is accessed through Django's PostgreSQL backend and `DATABASE_URL`; there is no Supabase client key in the application.
 - Vercel detects the Django project and serves static assets through its CDN. `vercel.json` only sets the Django framework preset.
 
+Project handoff documents: [product and architecture](docs/product-and-architecture.md), [design system](docs/design-system.md), [engineering ownership](docs/engineering-ownership.md), and [QA and operations](docs/qa-and-operations.md). GitHub Actions runs Django checks on pushes and pull requests; Vercel's GitHub integration handles preview and production deployment.
+
 ## Local setup
 
 Requires Python 3.12 and PostgreSQL for a production-like local setup. A fresh checkout without `DATABASE_URL` uses SQLite for local development only.
@@ -75,7 +77,7 @@ The repository is prepared for deployment, but connecting GitHub/Vercel, setting
 ## Deployment checklist
 
 - [ ] Supabase project created; pooler `DATABASE_URL` tested and SSL enabled.
-- [ ] Vercel project connected to GitHub and production branch selected.
+- [ ] Vercel project connected to GitHub and production branch selected; GitHub Actions checks pass.
 - [ ] Production environment variables set (`SECRET_KEY`, `DEBUG=False`, hosts, CSRF origins, database URL).
 - [ ] Static collection/build succeeds.
 - [ ] Controlled `migrate` command applied against production database.

@@ -1,5 +1,32 @@
 {% extends 'base.html' %}
-{% block title %}TaskFlow | Make today manageable{% endblock %}
-{% block content %}<section class="hero rounded-4 p-4 p-md-5 bg-white shadow-sm">
-  <div class="row align-items-center g-4"><div class="col-lg-7"><span class="badge text-bg-primary mb-3">A calmer way to stay on track</span><h1 class="display-5 fw-bold">Make room for the work that matters.</h1><p class="lead text-secondary mt-3">Plan your day, keep deadlines in view, and make steady progress with one simple task list.</p><div class="d-flex gap-2 mt-4"><a class="btn btn-primary btn-lg" href="{% url 'register' %}">Get started</a><a class="btn btn-outline-secondary btn-lg" href="{% url 'login' %}">Log in</a></div></div><div class="col-lg-5"><div class="preview-card p-4 rounded-4"><p class="text-secondary small mb-2">YOUR DAY</p><h2 class="h4">A little progress adds up.</h2><div class="task-preview mt-4"><span class="dot bg-success"></span><div><strong>Review project notes</strong><div class="small text-secondary">Today · High priority</div></div></div><div class="task-preview"><span class="dot bg-warning"></span><div><strong>Plan the week</strong><div class="small text-secondary">Tomorrow · Medium priority</div></div></div></div></div></div>
-</section><div class="row g-3 mt-3"><div class="col-md-4"><div class="feature-card"><strong>See the whole picture</strong><p class="text-secondary mb-0 mt-2">A focused dashboard for tasks, progress, and deadlines.</p></div></div><div class="col-md-4"><div class="feature-card"><strong>Keep priorities clear</strong><p class="text-secondary mb-0 mt-2">Search, sort, and filter to find your next step.</p></div></div><div class="col-md-4"><div class="feature-card"><strong>Your tasks stay yours</strong><p class="text-secondary mb-0 mt-2">Your account sees only the tasks you create.</p></div></div></div>{% endblock %}
+{% block title %}TaskFlow — make room for what matters{% endblock %}
+{% block content %}
+<section class="landing-hero">
+  <div class="hero-copy">
+    <span class="eyebrow eyebrow-pill"><span class="live-dot"></span> Your day, with a little more clarity</span>
+    <h1>Less keeping track.<br><span>More getting there.</span></h1>
+    <p class="hero-lede">A thoughtful place for your to-dos, priorities, and deadlines—so you can focus on the work in front of you.</p>
+    <div class="hero-actions"><a class="btn btn-primary btn-lg" href="{% url 'register' %}">Make your space <span aria-hidden="true">↗</span></a><a class="btn btn-link hero-login" href="{% url 'login' %}">I already have an account <span aria-hidden="true">→</span></a></div>
+    <div class="hero-proof"><span class="proof-check" aria-hidden="true">✓</span> Private by design <span class="proof-divider">·</span> Simple to start</div>
+  </div>
+  <div class="hero-art" aria-label="Illustration of an organized task list" role="img">
+    <div class="art-glow"></div><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+    <div class="floating-note note-left"><span class="note-spark">✳</span><span>one thing at a time</span></div>
+    <div class="task-window">
+      <div class="window-top"><div class="window-dots"><i></i><i></i><i></i></div><span>YOUR FOCUS LIST</span><span class="window-date">TODAY</span></div>
+      <div class="window-greeting"><span class="window-kicker">MONDAY, 9:41 AM</span><h2>A good day<br>starts with a plan.</h2></div>
+      <div class="mock-task done-task"><span class="mock-check checked">✓</span><div><strong>Clear the morning inbox</strong><small>Done and dusted</small></div><span class="mock-priority low">LOW</span></div>
+      <div class="mock-task"><span class="mock-check"></span><div><strong>Shape the project brief</strong><small>Due today · 2:00 PM</small></div><span class="mock-priority high">HIGH</span></div>
+      <div class="mock-task"><span class="mock-check"></span><div><strong>Take a proper lunch break</strong><small>Make space to reset</small></div><span class="mock-priority medium">MED</span></div>
+      <div class="window-progress"><span><i></i></span><small>One step at a time</small></div>
+    </div>
+    <div class="floating-note note-right"><span class="note-spark">↗</span><span>you’re on track</span></div>
+  </div>
+</section>
+<section class="landing-values" aria-label="TaskFlow benefits">
+  <div class="value-item"><span class="value-index">01</span><div><h2>See what matters</h2><p>One clear view of what’s due, what’s moving, and what’s done.</p></div></div>
+  <div class="value-item"><span class="value-index">02</span><div><h2>Find your next step</h2><p>Keep a calm list, then search and filter when the day gets busy.</p></div></div>
+  <div class="value-item"><span class="value-index">03</span><div><h2>Keep it personal</h2><p>Your work stays in your account, organized around your priorities.</p></div></div>
+</section>
+<section class="landing-bottom"><span class="eyebrow">A fresh start is a small step away</span><h2>Make a little room<br>for your best work.</h2><a class="btn btn-dark" href="{% url 'register' %}">Create your free account <span aria-hidden="true">↗</span></a></section>
+{% endblock %}

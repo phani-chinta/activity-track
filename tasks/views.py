@@ -25,8 +25,9 @@ def dashboard(request):
         completed=Count("id", filter=Q(status=Task.Status.COMPLETED)),
         overdue=Count("id", filter=Q(due_date__lt=today) & ~Q(status=Task.Status.COMPLETED)),
     )
+    completion_rate = round(stats["completed"] * 100 / stats["total"]) if stats["total"] else 0
     upcoming = tasks.exclude(status=Task.Status.COMPLETED).filter(due_date__gte=today).order_by("due_date", "created_at")[:5]
-    return render(request, "tasks/dashboard.html", {"stats": stats, "upcoming": upcoming})
+    return render(request, "tasks/dashboard.html", {"stats": stats, "upcoming": upcoming, "completion_rate": completion_rate})
 
 
 @login_required

@@ -1,6 +1,7 @@
 """Settings for the TaskFlow application."""
 import os
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import dj_database_url
 
@@ -18,6 +19,12 @@ if _env_file.is_file():
 SECRET_KEY = os.environ.get("SECRET_KEY", "local-development-only-change-me")
 DEBUG = os.environ.get("DEBUG", "False").lower() in {"1", "true", "yes"}
 ALLOWED_HOSTS = [host.strip() for host in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if host.strip()]
+for vercel_host in (os.environ.get("VERCEL_URL"), os.environ.get("VERCEL_PROJECT_PRODUCTION_URL")):
+    if vercel_host:
+        # Vercel normally supplies a bare hostname; also accept a full URL if configured manually.
+        host = urlsplit(vercel_host if "://" in vercel_host else f"https://{vercel_host}").hostname
+        if host and host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
 CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",") if origin.strip()]
 
 INSTALLED_APPS = [

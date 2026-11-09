@@ -7,7 +7,7 @@ TaskFlow is a server-rendered Django task manager. Users can register, manage th
 - `config/` contains project settings and URL/WSGI/ASGI configuration.
 - `accounts/` contains registration, profile editing, login/logout routes, and Django's password change views.
 - `tasks/` contains the task model, forms, owner-scoped CRUD views, dashboard, and automated tests.
-- `templates/` and `static/` contain the Bootstrap-based pages and responsive styling.
+- `templates/` contains the server-rendered pages; `public/static/` holds the app's first-party design assets. Django also collects these files into `STATIC_ROOT` for WhiteNoise fallback.
 - Supabase PostgreSQL is accessed through Django's PostgreSQL backend and `DATABASE_URL`; there is no Supabase client key in the application.
 - Vercel detects the Django project and serves static assets through its CDN. `vercel.json` only sets the Django framework preset.
 
@@ -59,7 +59,7 @@ The initial Task schema is in `tasks/migrations/0001_initial.py`. Apply schema c
 
 ## Static files
 
-WhiteNoise is enabled for local and conventional WSGI deployments. `python manage.py collectstatic --noinput` verifies/builds the manifest at `STATIC_ROOT`. Vercel's current Django integration serves static files through its CDN; the project keeps WhiteNoise as a fallback and does not require an `api/index.py` compatibility shim.
+First-party CSS and the favicon live under `public/static/`, so Vercel can serve the exact `/static/...` URLs directly from the project deployment. Django's `STATICFILES_DIRS` points to the same files, and `python manage.py collectstatic --noinput` copies them into `STATIC_ROOT` for WhiteNoise fallback and build verification. The app uses an absolute `/static/` prefix. Vercel's Django integration also promotes collected files to its CDN; an `api/index.py` compatibility shim is not required.
 
 ## Vercel deployment
 

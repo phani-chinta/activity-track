@@ -63,7 +63,7 @@ flowchart LR
 - `accounts/`: Django `User` form flows, profile form and account routes.
 - `tasks/`: Task schema, model form, owner-scoped task views, dashboard aggregation, admin, migrations, tests.
 - `templates/`: server-rendered pages; forms submit through Django with CSRF tokens.
-- `static/`: local design-system CSS and favicon; Vercel publishes collected assets through its CDN.
+- `public/static/`: same-origin design-system CSS and favicon, served directly by Vercel and also discovered by Django's static collector.
 - Supabase is PostgreSQL only. There is no browser-to-Supabase access and no anon/service-role key in Django settings.
 
 ### Data model

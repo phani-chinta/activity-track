@@ -52,7 +52,7 @@ TaskFlow should make task management feel calm and capable. The interface uses w
 
 ## Wireframe sketches
 
-These low-fidelity structure sketches describe content order. The live templates and CSS in `templates/` and `static/css/app.css` are the high-fidelity implementation.
+These low-fidelity structure sketches describe content order. The live templates and CSS in `templates/` and `public/static/css/app.css` are the high-fidelity implementation.
 
 ```text
 Landing (desktop)                     Landing (mobile)
@@ -82,6 +82,7 @@ Dashboard                             Task list
 - Priority/status use text as well as color. Feedback uses a live status role.
 - Reduced-motion settings disable animations and smooth scrolling.
 - Keep text/background contrast readable; avoid using the accent colors for long paragraphs.
+- The page stylesheet and favicon are first-party files under `public/static/`; the Bootstrap stylesheet is an optional CDN enhancement, not the only source of layout/styling.
 
 ## Interaction rules
 

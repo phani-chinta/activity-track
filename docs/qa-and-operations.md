@@ -68,7 +68,7 @@ Latest test run: **7 tests passed** on the local SQLite test database; Django sy
 | 500 on registration | Read Vercel runtime traceback; confirm Supabase is reachable and `auth_user` migrations were applied |
 | `relation ... does not exist` | Run `python manage.py showmigrations` against the target DB, then apply `python manage.py migrate` once |
 | Duplicate task table after manual SQL | Do not drop tables blindly; check `django_migrations` and reconcile schema/history with a reviewed migration plan |
-| Static files missing | Check Vercel build logs for `collectstatic`, `STATIC_ROOT`, CDN paths, and asset manifest |
+| Static files missing | Open `/static/css/app.css`; confirm it is present under `public/static/`, check the Vercel build log for `collectstatic`, and verify `STATIC_URL` is `/static/` |
 | Wrong user's task visible | Treat as a security incident; disable the affected route/deployment if necessary; inspect queryset scoping and add regression coverage |
 
 Do not return raw database traces or credentials to users. Use the Vercel runtime log to identify the underlying exception and report a sanitized message to the product owner.
